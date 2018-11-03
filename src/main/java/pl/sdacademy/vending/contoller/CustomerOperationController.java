@@ -11,7 +11,6 @@ public class CustomerOperationController {
 
     public void printMachine() {
 
-
         for (int rowNo = 0; rowNo < machine.rowCount(); rowNo++) {
             for (int colNo = 0; colNo < machine.colCount(); colNo++) {
                printUpperBoundary(rowNo, colNo);
@@ -25,7 +24,6 @@ public class CustomerOperationController {
                 printLowerBoundary(rowNo, colNo);
             }
             System.out.println();
-
         }
     }
 
