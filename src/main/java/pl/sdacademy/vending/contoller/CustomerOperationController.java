@@ -10,23 +10,35 @@ public class CustomerOperationController {
     }
 
     public void printMachine() {
-        char charTemp = 'A';
 
-        for (int i = 0; i < machine.rowCount(); i++) {
-            for (int j = 0; j < machine.colCount(); j++) {
-                System.out.print("+--------+");
+
+        for (int rowNo = 0; rowNo < machine.rowCount(); rowNo++) {
+            for (int colNo = 0; colNo < machine.colCount(); colNo++) {
+               printUpperBoundary(rowNo, colNo);
             }
             System.out.println();
-            for (int j = 0; j < machine.colCount(); j++) {
-                System.out.print("|   " + charTemp + (j + 1) + "   |");
+            for (int colNo = 0; colNo < machine.colCount(); colNo++) {
+                printSymbol(rowNo, colNo);
             }
             System.out.println();
-            for (int j = 0; j < machine.colCount(); j++) {
-                System.out.print("+--------+");
+            for (int colNo = 0; colNo < machine.colCount(); colNo++) {
+                printLowerBoundary(rowNo, colNo);
             }
             System.out.println();
 
-            charTemp++;
         }
+    }
+
+    public void printUpperBoundary( int rowNo, int colNo){
+        System.out.print("+--------+");
+    }
+
+    public void printSymbol( int rowNo, int colNo){
+        char charTemp = (char) ('A' + rowNo);
+        System.out.print("|   " + charTemp + (colNo + 1) + "   |");
+    }
+
+    public void printLowerBoundary( int rowNo, int colNo){
+        System.out.print("+--------+");
     }
 }
