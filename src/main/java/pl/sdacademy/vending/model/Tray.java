@@ -1,6 +1,8 @@
 package pl.sdacademy.vending.model;
 
+import java.lang.management.OperatingSystemMXBean;
 import java.util.ArrayDeque;
+import java.util.Optional;
 import java.util.Queue;
 
 public class Tray {
@@ -12,6 +14,10 @@ public class Tray {
         symbol = builder.symbol;
         price = builder.price;
         products = builder.products;
+    }
+
+    public Optional<String> firstProductName(){
+            return Optional.ofNullable(products.peek()).map(Product::getName);
     }
 
     public static Builder builder(String symbol) {

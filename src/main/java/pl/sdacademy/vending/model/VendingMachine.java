@@ -49,21 +49,11 @@ public class VendingMachine {
 //                        .produckt(new Product("Product " + symbol))
 //                        .build();
 //                          trays[rowNo][colNo] = tray;
-            } if (productProbability < 1) {
+            }
+            if (productProbability < 1) {
                 trayBuilder.produckt(new Product("Product " + symbol))
                         .produckt(new Product("Product " + symbol));
-//                Tray tray = Tray.builder(symbol)
-//                        .price(price)
-//                        .produckt(new Product("Product " + symbol))
-//                        .build();
-//                trays[rowNo][colNo] = tray;
             }
-//            else {
-//                Tray tray = Tray.builder(symbol)
-//                        .price(price)
-//                        .build();
-//                trays[rowNo][colNo] = tray;
-//            }
             trays[rowNo][colNo] = trayBuilder.build();
         }
     }
@@ -77,13 +67,6 @@ public class VendingMachine {
         } catch (ArrayIndexOutOfBoundsException e) {
             return Optional.empty();
         }
-//          Moj kod
-//        try {
-//            Optional<Tray> trayOptional = Optional.of(trays[rowNo][colNo]);
-//            return trayOptional;
-//        } catch (ArrayIndexOutOfBoundsException e) {
-//            return Optional.empty();
-//        }
     }
 
     public Long rowCount() {
@@ -94,5 +77,47 @@ public class VendingMachine {
         return colsCount;
     }
 
+    public Optional<String> productNameAtPosition(Integer rowNo, Integer colNo) {
+        Optional<Tray> tray = getTrayAtPosition(rowNo, colNo);
+        if (tray.isPresent()) {
+            return tray.get().firstProductName();
+        }
+        return Optional.empty();
+    }
 
+//    public Optional<Tray> getTrayAtPosition(int rowNo, int colNo) {
+//
+//          Moj kod
+//        try {
+//            Optional<Tray> trayOptional = Optional.of(trays[rowNo][colNo]);
+//            return trayOptional;
+//        } catch (ArrayIndexOutOfBoundsException e) {
+//            return Optional.empty();
+//        }
 }
+//     if (Math.random() < 0.8) {
+//
+//                Tray tray = Tray.builder(symbol)
+//                        .price(price)
+//                        .produckt(new Product("Product " + symbol))
+//                        .produckt(new Product("Product " + symbol))
+//                        .build();
+//                          trays[rowNo][colNo] = tray;
+//        } if (productProbability < 1) {
+//
+//                Tray tray = Tray.builder(symbol)
+//                        .price(price)
+//                        .produckt(new Product("Product " + symbol))
+//                        .build();
+//                trays[rowNo][colNo] = tray;
+
+//            else {
+//                Tray tray = Tray.builder(symbol)
+//                        .price(price)
+//                        .build();
+//                trays[rowNo][colNo] = tray;
+//            }
+//        trays[rowNo][colNo] = trayBuilder.build();
+//        }
+//        }
+
