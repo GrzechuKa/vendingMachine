@@ -41,18 +41,18 @@ public class VendingMachine {
 
         if (Math.random() < 0.8) {
             if (productProbability < 5) {
-                trayBuilder.produckt(new Product("Product " + symbol));
+                trayBuilder.product(new Product("Product " + symbol));
 
 //                Tray tray = Tray.builder(symbol)
 //                        .price(price)
-//                        .produckt(new Product("Product " + symbol))
-//                        .produckt(new Product("Product " + symbol))
+//                        .product(new Product("Product " + symbol))
+//                        .product(new Product("Product " + symbol))
 //                        .build();
 //                          trays[rowNo][colNo] = tray;
             }
             if (productProbability < 1) {
-                trayBuilder.produckt(new Product("Product " + symbol))
-                        .produckt(new Product("Product " + symbol));
+                trayBuilder.product(new Product("Product " + symbol))
+                        .product(new Product("Product " + symbol));
             }
             trays[rowNo][colNo] = trayBuilder.build();
         }
@@ -85,6 +85,24 @@ public class VendingMachine {
         return Optional.empty();
     }
 
+    public Optional<Product> buyProductWithSymbol(String traySymbol) {
+        for (int rowNo = 0; rowNo < rowsCount; rowNo++) {
+            for (int colNo = 0; colNo < colsCount; colNo++) {
+                Tray tray = trays[rowNo][colNo];
+                if (tray == null) {
+                    continue;
+                }
+                if (tray.getSymbol().equals(traySymbol)) {
+                    return tray.buyProduct();
+                }
+
+
+
+            }
+        }
+        return Optional.empty();
+    }
+
 //    public Optional<Tray> getTrayAtPosition(int rowNo, int colNo) {
 //
 //          Moj kod
@@ -99,15 +117,15 @@ public class VendingMachine {
 //
 //                Tray tray = Tray.builder(symbol)
 //                        .price(price)
-//                        .produckt(new Product("Product " + symbol))
-//                        .produckt(new Product("Product " + symbol))
+//                        .product(new Product("Product " + symbol))
+//                        .product(new Product("Product " + symbol))
 //                        .build();
 //                          trays[rowNo][colNo] = tray;
 //        } if (productProbability < 1) {
 //
 //                Tray tray = Tray.builder(symbol)
 //                        .price(price)
-//                        .produckt(new Product("Product " + symbol))
+//                        .product(new Product("Product " + symbol))
 //                        .build();
 //                trays[rowNo][colNo] = tray;
 

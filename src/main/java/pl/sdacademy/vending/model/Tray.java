@@ -32,6 +32,9 @@ public class Tray {
         return price;
     }
 
+    public Optional<Product> buyProduct() {
+        return Optional.ofNullable(products.poll());
+    }
 
     public static class Builder {
         private String symbol;
@@ -48,7 +51,7 @@ public class Tray {
             return this;
         }
 
-        public Builder produckt(Product product) {
+        public Builder product(Product product) {
             products.add(product);
             return this;
         }

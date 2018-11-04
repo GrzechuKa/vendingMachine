@@ -1,5 +1,6 @@
 package pl.sdacademy.vending.contoller;
 
+import pl.sdacademy.vending.model.Product;
 import pl.sdacademy.vending.model.Tray;
 import pl.sdacademy.vending.model.VendingMachine;
 import pl.sdacademy.vending.util.StringUtil;
@@ -40,6 +41,10 @@ public class CustomerOperationController {
             //wyswietl nazwe produktu
             //wyswietl cene
         }
+    }
+
+    public Optional<Product> buyProductForSymbol (String traySymbol){
+            return machine.buyProductWithSymbol(traySymbol);
     }
 
     private void printUpperBoundary(int rowNo, int colNo){
