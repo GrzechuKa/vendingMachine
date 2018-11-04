@@ -30,7 +30,7 @@ public class CustomerOperationController {
         }
     }
 
-    private void printUpperBoundary( int rowNo, int colNo){
+    private void printUpperBoundary(int rowNo, int colNo){
         System.out.print("+--------+");
     }
 
