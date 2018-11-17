@@ -1,5 +1,7 @@
 package pl.sdacademy.vending;
 
+import java.util.Arrays;
+
 public enum UserMenuSelection {
 
     BUY_PRODUCT(1, "Buy product"),
@@ -13,6 +15,14 @@ public enum UserMenuSelection {
         this.optionText = optionText;
     }
 
+    public static UserMenuSelection selectionFrooptionNumber(Integer requestedOptionNumber) {
+        return Arrays.stream(values())
+                .filter(enumValue -> enumValue.getOptionNumber().equals(requestedOptionNumber))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("unknow option number: " + requestedOptionNumber));
+    }
+
+
     public Integer getOptionNumber() {
         return optionNumber;
     }
@@ -20,4 +30,16 @@ public enum UserMenuSelection {
     public String getOptionText() {
         return optionText;
     }
+
+//    kod napisany przeze mnie bez strumieni powyżej metoda ze strumieniami
+//    public static UserMenuSelection selectionFrooptionNumber(Integer requestedOptionNumber) {
+//
+//        for (UserMenuSelection menuSelection : UserMenuSelection.values()) {
+//            if (requestedOptionNumber == menuSelection.getOptionNumber()) {
+//                return menuSelection;
+//            }
+//        }
+//        throw new IllegalArgumentException("unknow option number: " + requestedOptionNumber);
+//    }
+
 }

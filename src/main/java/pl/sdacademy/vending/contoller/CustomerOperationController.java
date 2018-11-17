@@ -38,13 +38,11 @@ public class CustomerOperationController {
                 printLowerBoundary(rowNo, colNo);
             }
             System.out.println();
-            //wyswietl nazwe produktu
-            //wyswietl cene
         }
     }
 
     public Optional<Product> buyProductForSymbol (String traySymbol){
-            return machine.buyProductWithSymbol(traySymbol);
+            return machine.buyProductWithSymbol(traySymbol.toUpperCase());
     }
 
     private void printUpperBoundary(int rowNo, int colNo){
