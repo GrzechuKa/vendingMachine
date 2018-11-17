@@ -85,6 +85,7 @@ public class VendingMachine {
         return Optional.empty();
     }
 
+
     public Optional<Product> buyProductWithSymbol(String traySymbol) {
         for (int rowNo = 0; rowNo < rowsCount; rowNo++) {
             for (int colNo = 0; colNo < colsCount; colNo++) {
@@ -95,13 +96,19 @@ public class VendingMachine {
                 if (tray.getSymbol().equals(traySymbol)) {
                     return tray.buyProduct();
                 }
-
-
-
             }
         }
         return Optional.empty();
     }
+
+    public boolean placeTray(Tray tray) {
+        String symbol = tray.getSymbol();
+        Integer rowNo = symbol.charAt(0) - 'A';
+        Integer colNo = symbol.charAt(1) - '1';
+        trays[rowNo][colNo] = tray;
+        return true;
+    }
+
 
 //    public Optional<Tray> getTrayAtPosition(int rowNo, int colNo) {
 //

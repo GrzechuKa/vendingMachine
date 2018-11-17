@@ -68,6 +68,30 @@ public class VendingMachineTest {
         // When
         new VendingMachine(config);
         // Then
+    }
 
+    @Test
+    public void shouldBeAbleToAddTrayToEmptySpot(){
+        //Given
+        Tray tray = Tray.builder("A2").build();
+        Configuration config = mock(Configuration.class);
+        doReturn(6L).when(config).getLongProperty(eq("machine.size.rows"), anyLong());
+        doReturn(4L).when(config).getLongProperty(eq("machine.size.cols"), anyLong());
+        VendingMachine testedMachine = new VendingMachine(config);
+        // When
+        boolean placed = testedMachine.placeTray(tray);
+        // Than
+        assertTrue(placed);
+        assertEquals(tray, testedMachine.getTrayAtPosition(0, 1 ).get());
+    }
+
+    @Test
+        public void test() {
+            // Given
+
+            // When
+
+            // Then
+            
     }
 }
