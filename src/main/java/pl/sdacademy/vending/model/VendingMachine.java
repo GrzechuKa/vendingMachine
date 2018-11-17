@@ -22,41 +22,8 @@ public class VendingMachine {
             throw new IllegalArgumentException("Cols count " + colsCount() + " is invalid");
         }
         trays = new Tray[rowsCount.intValue()][colsCount.intValue()];
-
-        for (int rowNo = 0; rowNo < rowsCount; rowNo++) {
-            for (int colNo = 0; colNo < colsCount; colNo++) {
-                generateTrayAtPosiotion(rowNo, colNo);
-            }
-        }
     }
 
-    private void generateTrayAtPosiotion(int rowNo, int colNo) {
-        Random random = new Random();
-        Long price = Long.valueOf(random.nextInt(901) + 100);
-        char letter = (char) ('A' + rowNo);
-        int number = colNo + 1;
-        String symbol = "" + letter + number;
-        Tray.Builder trayBuilder = Tray.builder(symbol).price(price);
-        int productProbability = random.nextInt(10);
-
-        if (Math.random() < 0.8) {
-            if (productProbability < 5) {
-                trayBuilder.product(new Product("Product " + symbol));
-
-//                Tray tray = Tray.builder(symbol)
-//                        .price(price)
-//                        .product(new Product("Product " + symbol))
-//                        .product(new Product("Product " + symbol))
-//                        .build();
-//                          trays[rowNo][colNo] = tray;
-            }
-            if (productProbability < 1) {
-                trayBuilder.product(new Product("Product " + symbol))
-                        .product(new Product("Product " + symbol));
-            }
-            trays[rowNo][colNo] = trayBuilder.build();
-        }
-    }
 
     public Optional<Tray> getTrayAtPosition(int rowNo, int colNo) {
         //tacke opakowana w optional jesli nie ma to pusty optional
@@ -103,46 +70,21 @@ public class VendingMachine {
 
     public boolean placeTray(Tray tray) {
         String symbol = tray.getSymbol();
+        if(symbol.length() != 2){
+            return false;
+        }
         Integer rowNo = symbol.charAt(0) - 'A';
         Integer colNo = symbol.charAt(1) - '1';
-        trays[rowNo][colNo] = tray;
-        return true;
+        if (rowNo < 0 || rowNo >= rowsCount || colNo < 0 || colNo >= colsCount) {
+            return false;
+        }
+            Optional<Tray> trayOptional = getTrayAtPosition(rowNo, colNo);
+            if (trayOptional.isPresent()) {
+                return false;
+            } else {
+                trays[rowNo][colNo] = tray;
+                return true;
+            }
+        }
     }
-
-
-//    public Optional<Tray> getTrayAtPosition(int rowNo, int colNo) {
-//
-//          Moj kod
-//        try {
-//            Optional<Tray> trayOptional = Optional.of(trays[rowNo][colNo]);
-//            return trayOptional;
-//        } catch (ArrayIndexOutOfBoundsException e) {
-//            return Optional.empty();
-//        }
-}
-//     if (Math.random() < 0.8) {
-//
-//                Tray tray = Tray.builder(symbol)
-//                        .price(price)
-//                        .product(new Product("Product " + symbol))
-//                        .product(new Product("Product " + symbol))
-//                        .build();
-//                          trays[rowNo][colNo] = tray;
-//        } if (productProbability < 1) {
-//
-//                Tray tray = Tray.builder(symbol)
-//                        .price(price)
-//                        .product(new Product("Product " + symbol))
-//                        .build();
-//                trays[rowNo][colNo] = tray;
-
-//            else {
-//                Tray tray = Tray.builder(symbol)
-//                        .price(price)
-//                        .build();
-//                trays[rowNo][colNo] = tray;
-//            }
-//        trays[rowNo][colNo] = trayBuilder.build();
-//        }
-//        }
 
