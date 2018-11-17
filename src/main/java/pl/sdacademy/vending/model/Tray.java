@@ -1,11 +1,13 @@
 package pl.sdacademy.vending.model;
 
+import java.io.Serializable;
 import java.lang.management.OperatingSystemMXBean;
 import java.util.ArrayDeque;
 import java.util.Optional;
 import java.util.Queue;
 
-public class Tray {
+public class Tray implements Serializable {
+    public static final long serialVersionUID = 1L;
     private String symbol;
     private Long price;
     private Queue<Product> products;
@@ -16,8 +18,8 @@ public class Tray {
         products = builder.products;
     }
 
-    public Optional<String> firstProductName(){
-            return Optional.ofNullable(products.peek()).map(Product::getName);
+    public Optional<String> firstProductName() {
+        return Optional.ofNullable(products.peek()).map(Product::getName);
     }
 
     public static Builder builder(String symbol) {

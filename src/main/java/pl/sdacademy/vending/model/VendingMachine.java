@@ -2,17 +2,17 @@ package pl.sdacademy.vending.model;
 
 import pl.sdacademy.vending.util.Configuration;
 
+import java.io.Serializable;
 import java.util.Optional;
 import java.util.Random;
 
-public class VendingMachine {
-    private final Configuration configuration;
+public class VendingMachine implements Serializable {
+    public static final long serialVersionUID = 1L;
     private final Long rowsCount;
     private final Long colsCount;
     private final Tray[][] trays;
 
     public VendingMachine(Configuration configuration) {
-        this.configuration = configuration;
         rowsCount = configuration.getLongProperty("machine.size.rows", 6L);
         if (rowsCount <= 0 || rowsCount > 9) {
             throw new IllegalArgumentException("Row count " + rowsCount + " is invalid");
@@ -23,7 +23,6 @@ public class VendingMachine {
         }
         trays = new Tray[rowsCount.intValue()][colsCount.intValue()];
     }
-
 
     public Optional<Tray> getTrayAtPosition(int rowNo, int colNo) {
         //tacke opakowana w optional jesli nie ma to pusty optional
