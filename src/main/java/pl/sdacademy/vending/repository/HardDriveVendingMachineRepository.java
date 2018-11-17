@@ -12,7 +12,7 @@ public class HardDriveVendingMachineRepository implements VendingMachineReposito
     private final String repoLocaton;
 
     public HardDriveVendingMachineRepository(Configuration configuration) {
-        repoLocaton = configuration.getStringPropoerty ("repository.harddrive.vm.path", "VendingMachine.ser");
+        repoLocaton = configuration.getStringPropoerty("repository.harddrive.vm.path", "VendingMachine.ser");
 
     }
 
