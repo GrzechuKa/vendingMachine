@@ -1,6 +1,7 @@
 package pl.sdacademy.vending.service;
 
 import pl.sdacademy.vending.contoller.service.EmployeeService;
+import pl.sdacademy.vending.model.Product;
 import pl.sdacademy.vending.model.Tray;
 import pl.sdacademy.vending.model.VendingMachine;
 import pl.sdacademy.vending.service.repository.VendingMachineRepository;
@@ -34,7 +35,7 @@ public class DefaultEmployeeService implements EmployeeService {
     public Optional<String> removeTrayWithSymbol(String traySymbol) {
         Optional<VendingMachine> optionalVendingMachine = machineRepository.load();
 
-        if(optionalVendingMachine.isPresent()) {
+        if (optionalVendingMachine.isPresent()) {
             VendingMachine vendingMachine = optionalVendingMachine.get();
             Optional<Tray> removeOptional = vendingMachine.removeTrayWithSymbol(traySymbol);
 
@@ -47,5 +48,30 @@ public class DefaultEmployeeService implements EmployeeService {
         } else {
             return Optional.of("There is not Machine");
         }
+    }
+
+    @Override
+    public Optional<String> addProduct(String symbolTray, String productName, Integer numberAddProduct) {
+        Optional<VendingMachine> optionalVendingMachine = machineRepository.load();
+
+        if (optionalVendingMachine.isPresent()) {
+            VendingMachine vendingMachine = optionalVendingMachine.get();
+            Integer productAdd = numberAddProduct;
+
+            for (int i = 0; i < numberAddProduct; i++) {
+                if (vendingMachine.addProductToTray(symbolTray, new Product(productName))) {
+                    productAdd--;
+                } else {
+                    return Optional.of("Not add " + productAdd + "products");
+                }
+            }
+            machineRepository.save(vendingMachine);
+            return Optional.empty();
+        } else {
+            return Optional.of("No machine");
+
+        }
+
+
     }
 }
