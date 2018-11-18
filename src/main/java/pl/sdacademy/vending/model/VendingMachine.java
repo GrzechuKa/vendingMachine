@@ -4,7 +4,6 @@ import pl.sdacademy.vending.util.Configuration;
 
 import java.io.Serializable;
 import java.util.Optional;
-import java.util.Random;
 
 public class VendingMachine implements Serializable {
     public static final long serialVersionUID = 1L;
@@ -69,7 +68,7 @@ public class VendingMachine implements Serializable {
 
     public boolean placeTray(Tray tray) {
         String symbol = tray.getSymbol();
-        if(symbol.length() != 2){
+        if (symbol.length() != 2) {
             return false;
         }
         Integer rowNo = symbol.charAt(0) - 'A';
@@ -77,13 +76,26 @@ public class VendingMachine implements Serializable {
         if (rowNo < 0 || rowNo >= rowsCount || colNo < 0 || colNo >= colsCount) {
             return false;
         }
-            Optional<Tray> trayOptional = getTrayAtPosition(rowNo, colNo);
-            if (trayOptional.isPresent()) {
-                return false;
-            } else {
-                trays[rowNo][colNo] = tray;
-                return true;
-            }
+        Optional<Tray> trayOptional = getTrayAtPosition(rowNo, colNo);
+        if (trayOptional.isPresent()) {
+            return false;
+        } else {
+            trays[rowNo][colNo] = tray;
+            return true;
         }
     }
+
+    public Optional<Tray> removeTrayWithSymbol(String traySymbol) {
+        if (traySymbol.length() != 2) {
+            return Optional.empty();
+        }
+        Integer rowNo = traySymbol.charAt(0) - 'A';
+        Integer colNo = traySymbol.charAt(1) - '1';
+        Optional<Tray> trayAtPosition = getTrayAtPosition(rowNo, colNo);
+        if (trayAtPosition.isPresent()) {
+            trays[rowNo][colNo] = null;
+        }
+        return trayAtPosition;
+    }
+}
 
