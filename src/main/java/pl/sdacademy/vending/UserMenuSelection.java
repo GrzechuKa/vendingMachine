@@ -5,7 +5,8 @@ import java.util.Arrays;
 public enum UserMenuSelection {
 
     BUY_PRODUCT(1, "Buy product"),
-    EXIT(9, "Exit");
+    EXIT(9, "Exit"),
+    SERVICE_MENU(0, "Servive menu");
 
     private final Integer optionNumber;
     private final String optionText;
@@ -15,7 +16,7 @@ public enum UserMenuSelection {
         this.optionText = optionText;
     }
 
-    public static UserMenuSelection selectionFrooptionNumber(Integer requestedOptionNumber) {
+    public static UserMenuSelection selectionForOptionNumber(Integer requestedOptionNumber) {
         return Arrays.stream(values())
                 .filter(enumValue -> enumValue.getOptionNumber().equals(requestedOptionNumber))
                 .findFirst()
@@ -32,7 +33,7 @@ public enum UserMenuSelection {
     }
 
 //    kod napisany przeze mnie bez strumieni powyżej metoda ze strumieniami
-//    public static UserMenuSelection selectionFrooptionNumber(Integer requestedOptionNumber) {
+//    public static UserMenuSelection selectionForOptionNumber(Integer requestedOptionNumber) {
 //
 //        for (UserMenuSelection menuSelection : UserMenuSelection.values()) {
 //            if (requestedOptionNumber == menuSelection.getOptionNumber()) {

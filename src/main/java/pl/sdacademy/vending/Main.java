@@ -34,16 +34,10 @@ public class Main {
                 UserMenuSelection userSelection = getUserSelection();
                 switch (userSelection) {
                     case BUY_PRODUCT:
-                        //1. pobierz od urzytkownika symbol tacki
-                        //2. wysywolac odpowiedni mtede z kontorlera
-                        //Optional byProductForSymbol(String traySymbol)
-                        //3. Jeżeli udało sie kupic produkt
-                        //Wypsisz na ekran potwierdzenie ze udlo sie zakupic  i znazwe
-                        // 4. jeśli nie wyświetlić że brak produktu
                         System.out.print("> Tray symbol :");
                         String traySymbol = new Scanner(System.in).nextLine();
                         Optional<Product> product = customerOperationController.buyProductForSymbol(traySymbol);
-                        if(product.isPresent()){
+                        if (product.isPresent()) {
                             System.out.println("You buy product : " + product.get().getName());
                         } else {
                             System.out.println("No product");
@@ -52,6 +46,9 @@ public class Main {
                     case EXIT:
                         System.out.println("Bye");
                         return;
+                    case SERVICE_MENU:
+                        handleServiceUser();
+                        break;
                     default:
                         System.out.println("Invalid selection");
                 }
@@ -68,12 +65,58 @@ public class Main {
         }
     }
 
+    private void handleServiceUser() {
+        while (true) {
+        customerOperationController.printMachine();
+        printServiceMenu();
+            try {
+                ServiceMenuSelection serviceMenuSelection = getUserServiveSelection();
+                switch (serviceMenuSelection) {
+                    case ADDTRAY:
+                        employeeOpetationControler.addTray();
+                        break;
+                    case REMOVE_TRAY:
+                        break;
+                    case ADD_PRODUCT_FOR_POSIOTON:
+                        break;
+                    case REMOVE_PRODUCT_FROM_TRAY:
+                        break;
+                    case CHANGE_PRICE:
+                        break;
+                    case EXIT:
+                        return;
+                    default:
+                        System.out.println("Invalid selection");
+                }
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private void printServiceMenu() {
+        for (ServiceMenuSelection selection : ServiceMenuSelection.values()) {
+            System.out.println(selection.getOptionNumber() + ". " + selection.getOptionMessage());
+        }
+    }
+
     private UserMenuSelection getUserSelection() {
         System.out.print(" > Your selection: ");
         String userSelection = new Scanner(System.in).nextLine();
         try {
             Integer menuNumber = Integer.valueOf(userSelection);
-            return UserMenuSelection.selectionFrooptionNumber(menuNumber);
+            return UserMenuSelection.selectionForOptionNumber(menuNumber);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid selection format");
+        }
+    }
+
+    private ServiceMenuSelection getUserServiveSelection() {
+        System.out.print(" > Your selection: ");
+        String userServiceSelection = new Scanner((System.in)).nextLine();
+        try {
+            Integer menuServiceNumber = Integer.valueOf(userServiceSelection);
+            return ServiceMenuSelection.selectionForOptionNumber(menuServiceNumber);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Invalid selection format");
         }
