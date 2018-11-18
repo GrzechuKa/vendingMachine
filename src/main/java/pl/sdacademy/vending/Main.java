@@ -1,19 +1,30 @@
 package pl.sdacademy.vending;
 
 import pl.sdacademy.vending.contoller.CustomerOperationController;
+import pl.sdacademy.vending.contoller.EmployeeOpetationControler;
+import pl.sdacademy.vending.contoller.service.EmployeeService;
 import pl.sdacademy.vending.model.Product;
-import pl.sdacademy.vending.model.VendingMachine;
+import pl.sdacademy.vending.repository.HardDriveVendingMachineRepository;
+import pl.sdacademy.vending.service.DefaultEmployeeService;
+import pl.sdacademy.vending.service.repository.VendingMachineRepository;
 import pl.sdacademy.vending.util.Configuration;
 
-import java.lang.management.OperatingSystemMXBean;
 import java.util.Optional;
 import java.util.Scanner;
 
 public class Main {
 
-    Configuration configuration = new Configuration();
-    VendingMachine vendingMachine = new VendingMachine(configuration);
-    CustomerOperationController customerOperationController = new CustomerOperationController(vendingMachine);
+    Configuration configuration =
+            new Configuration();
+    VendingMachineRepository vendingMachineRepository =
+            new HardDriveVendingMachineRepository(configuration);
+    EmployeeService employeeService =
+            new DefaultEmployeeService(vendingMachineRepository, configuration);
+    EmployeeOpetationControler employeeOpetationControler =
+            new EmployeeOpetationControler(employeeService);
+    CustomerOperationController customerOperationController =
+            new CustomerOperationController(vendingMachineRepository);
+
 
     private void startApplication() {
         while (true) {

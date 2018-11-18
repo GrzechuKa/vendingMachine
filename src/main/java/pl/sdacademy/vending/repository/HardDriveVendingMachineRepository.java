@@ -33,9 +33,9 @@ public class HardDriveVendingMachineRepository implements VendingMachineReposito
             VendingMachine readObject = (VendingMachine) objectInputStream.readObject();
             return Optional.ofNullable(readObject);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Vending Machin Repo file not found");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Could not found repo Vending Machine Class");
         }
         return Optional.empty();
     }
