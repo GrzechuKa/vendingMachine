@@ -1,12 +1,12 @@
 package pl.sdacademy.vending.model;
 
 import java.io.Serializable;
-import java.lang.management.OperatingSystemMXBean;
 import java.util.ArrayDeque;
 import java.util.Optional;
 import java.util.Queue;
 
 public class Tray implements Serializable {
+    public static final Integer MAX_SIZE = 10;
     public static final long serialVersionUID = 1L;
     private String symbol;
     private Long price;
@@ -26,6 +26,14 @@ public class Tray implements Serializable {
         return new Builder(symbol);
     }
 
+    public boolean addProduct(Product product) {
+        if (products.size() < MAX_SIZE) {
+            return products.add(product);
+        } else {
+            return false;
+        }
+    }
+
     public String getSymbol() {
         return symbol;
     }
@@ -37,6 +45,7 @@ public class Tray implements Serializable {
     public Optional<Product> buyProduct() {
         return Optional.ofNullable(products.poll());
     }
+
 
     public static class Builder {
         private String symbol;

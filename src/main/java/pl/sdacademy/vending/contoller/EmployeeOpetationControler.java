@@ -27,6 +27,11 @@ public class EmployeeOpetationControler {
         System.out.println(errorMessege.orElse("Tray has been added"));
     }
 
+    public void removeTray() {
+        Optional<String> retmoveTray = employeeService.removeTrayWithSymbol(getTraySymbolFromUser());
+        System.out.println(retmoveTray.orElse("Tray has been removed"));
+    }
+
     private String getTraySymbolFromUser() {
         System.out.print(" > Provide tray symbol :");
         return getUserInput().toUpperCase();
@@ -42,6 +47,7 @@ public class EmployeeOpetationControler {
             }
         }
     }
+
 
     private String getUserInput() {
         return new Scanner(System.in).nextLine();

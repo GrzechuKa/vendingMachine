@@ -76,6 +76,7 @@ public class Main {
                         employeeOpetationControler.addTray();
                         break;
                     case REMOVE_TRAY:
+                        employeeOpetationControler.removeTray();
                         break;
                     case ADD_PRODUCT_FOR_POSIOTON:
                         break;

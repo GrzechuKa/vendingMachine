@@ -97,5 +97,24 @@ public class VendingMachine implements Serializable {
         }
         return trayAtPosition;
     }
+
+    public boolean addProductToTray(String traySymbol, Product product) {
+        Optional<Tray> optainedTray = getTreyForSymbol(traySymbol);
+
+        if (optainedTray.isPresent()) {
+            return optainedTray.get().addProduct(product);
+        } else {
+            return false;
+        }
+    }
+
+    private Optional<Tray> getTreyForSymbol (String traySymbol){
+        if (traySymbol.length() != 2) {
+            return Optional.empty();
+        }
+        Integer rowNo = traySymbol.charAt(0) - 'A';
+        Integer colNo = traySymbol.charAt(1) - '1';
+        return getTrayAtPosition(rowNo, colNo);
+    }
 }
 

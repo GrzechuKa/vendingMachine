@@ -20,5 +20,20 @@ public class TrayTest {
         assertEquals(definiedProduct, boughtProduxt.get());
     }
 
+    @Test
+    public void shouldNotBeAbleToOverloadTray(){
+        // Given
+        Tray tray = Tray.builder("A1").build();
+        for(int i=0; i < Tray.MAX_SIZE; i++){
+            tray.addProduct(new Product("abc"));
+        }
+        Product product = new Product("P1");
+        // When
+        boolean result = tray.addProduct(product);
+        tray.firstProductName();
+        // Then
+        assertFalse(result);
+    }
+
 
 }

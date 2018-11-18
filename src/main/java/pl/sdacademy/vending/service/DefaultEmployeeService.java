@@ -29,4 +29,23 @@ public class DefaultEmployeeService implements EmployeeService {
             return Optional.of("Not add tray");
         }
     }
+
+    @Override
+    public Optional<String> removeTrayWithSymbol(String traySymbol) {
+        Optional<VendingMachine> optionalVendingMachine = machineRepository.load();
+
+        if(optionalVendingMachine.isPresent()) {
+            VendingMachine vendingMachine = optionalVendingMachine.get();
+            Optional<Tray> removeOptional = vendingMachine.removeTrayWithSymbol(traySymbol);
+
+            if (removeOptional.isPresent()) {
+                machineRepository.save(vendingMachine);
+                return Optional.empty();
+            } else {
+                return Optional.of("Could not remove tray, chcec provided position");
+            }
+        } else {
+            return Optional.of("There is not Machine");
+        }
+    }
 }
