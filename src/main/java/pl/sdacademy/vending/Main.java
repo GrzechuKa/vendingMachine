@@ -2,9 +2,11 @@ package pl.sdacademy.vending;
 
 import pl.sdacademy.vending.contoller.CustomerOperationController;
 import pl.sdacademy.vending.contoller.EmployeeOpetationControler;
+import pl.sdacademy.vending.contoller.service.CustomerService;
 import pl.sdacademy.vending.contoller.service.EmployeeService;
 import pl.sdacademy.vending.model.Product;
 import pl.sdacademy.vending.repository.HardDriveVendingMachineRepository;
+import pl.sdacademy.vending.service.DefaultCustomerService;
 import pl.sdacademy.vending.service.DefaultEmployeeService;
 import pl.sdacademy.vending.service.repository.VendingMachineRepository;
 import pl.sdacademy.vending.util.Configuration;
@@ -14,16 +16,12 @@ import java.util.Scanner;
 
 public class Main {
 
-    Configuration configuration =
-            new Configuration();
-    VendingMachineRepository vendingMachineRepository =
-            new HardDriveVendingMachineRepository(configuration);
-    EmployeeService employeeService =
-            new DefaultEmployeeService(vendingMachineRepository, configuration);
-    EmployeeOpetationControler employeeOpetationControler =
-            new EmployeeOpetationControler(employeeService);
-    CustomerOperationController customerOperationController =
-            new CustomerOperationController(vendingMachineRepository);
+    Configuration configuration = new Configuration();
+    VendingMachineRepository vendingMachineRepository = new HardDriveVendingMachineRepository(configuration);
+    EmployeeService employeeService = new DefaultEmployeeService(vendingMachineRepository, configuration);
+    CustomerService customerService = new DefaultCustomerService(vendingMachineRepository);
+    EmployeeOpetationControler employeeOpetationControler = new EmployeeOpetationControler(employeeService);
+    CustomerOperationController customerOperationController = new CustomerOperationController(customerService);
 
 
     private void startApplication() {
@@ -79,6 +77,7 @@ public class Main {
                         employeeOpetationControler.removeTray();
                         break;
                     case ADD_PRODUCT_FOR_POSIOTON:
+                        employeeOpetationControler.addProducts();
                         break;
                     case REMOVE_PRODUCT_FROM_TRAY:
                         break;

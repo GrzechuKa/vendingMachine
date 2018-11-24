@@ -39,8 +39,18 @@ public class EmployeeOpetationControler {
         if(changePrice.isPresent()){
             System.out.println(changePrice);
         } else{
-        System.out.println("OK");
+        System.out.println("Price changed");
         }
+    }
+
+    public void addProducts() {
+        Optional<String> errorMessage = employeeService.addProduct(getTraySymbolFromUser(), getNameProductFromUser(), getQuantityOfProductsFromUser());
+        System.out.println(errorMessage.orElse("All products has been added"));
+    }
+
+    private String getNameProductFromUser() {
+        System.out.print(" > Provide name Products :");
+        return getUserInput().toUpperCase();
     }
 
     private String getTraySymbolFromUser() {
@@ -57,6 +67,18 @@ public class EmployeeOpetationControler {
                 System.out.println("Invalid price. Try again!!!");
             }
         }
+    }
+    private Integer getQuantityOfProductsFromUser() {
+        Integer quantity = null;
+        while (quantity == null) {
+            System.out.print(" > Provided product quantity: ");
+            try {
+                quantity = Integer.parseInt(getUserInput());
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid number. Try again.");
+            }
+        }
+        return quantity;
     }
 
 

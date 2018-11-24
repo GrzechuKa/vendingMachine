@@ -1,5 +1,6 @@
 package pl.sdacademy.vending.contoller;
 
+import pl.sdacademy.vending.contoller.service.CustomerService;
 import pl.sdacademy.vending.model.Product;
 import pl.sdacademy.vending.model.Tray;
 import pl.sdacademy.vending.model.VendingMachine;
@@ -9,16 +10,15 @@ import pl.sdacademy.vending.util.StringUtil;
 import java.util.Optional;
 
 public class CustomerOperationController {
-    private final VendingMachineRepository machineRepository;
+    private final CustomerService customerService;
     private final Integer trayWidth = 12;
 
-    public CustomerOperationController(VendingMachineRepository machineRepository) {
-        this.machineRepository = machineRepository;
-
+    public CustomerOperationController(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
     public void printMachine() {
-        Optional<VendingMachine> loadedMachine = machineRepository.load();
+        Optional<VendingMachine> loadedMachine = customerService.loadMachineToPrint();
         if(!loadedMachine.isPresent()){
             System.out.println("Vending Machine out of servive");
             return;
@@ -49,16 +49,7 @@ public class CustomerOperationController {
     }
 
     public Optional<Product> buyProductForSymbol (String traySymbol){
-        Optional<VendingMachine> loaded = machineRepository.load();
-        if(loaded.isPresent()){
-            VendingMachine machine = loaded.get();
-            Optional<Product> boughtProduct = machine.buyProductWithSymbol(traySymbol.toUpperCase());
-            machineRepository.save(machine);
-            return boughtProduct;
-        } else {
-            System.out.println("Vending Machine out of sevrice");
-            return Optional.empty();
-        }
+        return customerService.buyProductFtomTray(traySymbol);
     }
 
     private void printUpperBoundary(VendingMachine machine, int rowNo, int colNo){
