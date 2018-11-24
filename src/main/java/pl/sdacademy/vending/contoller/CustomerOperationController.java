@@ -8,6 +8,7 @@ import pl.sdacademy.vending.service.repository.VendingMachineRepository;
 import pl.sdacademy.vending.util.StringUtil;
 
 import java.util.Optional;
+import java.util.Scanner;
 
 public class CustomerOperationController {
     private final CustomerService customerService;
@@ -48,8 +49,15 @@ public class CustomerOperationController {
         }
     }
 
-    public Optional<Product> buyProductForSymbol (String traySymbol){
-        return customerService.buyProductFtomTray(traySymbol);
+    public void buyProduct(){
+        System.out.print("> Tray symbol :");
+        String traySymbol = new Scanner(System.in).nextLine();
+        Optional<Product> product = customerService.buyProductFtomTray(traySymbol);
+        if (product.isPresent()) {
+            System.out.println("You buy product : " + product.get().getName());
+        } else {
+            System.out.println("Out of stock");
+        }
     }
 
     private void printUpperBoundary(VendingMachine machine, int rowNo, int colNo){

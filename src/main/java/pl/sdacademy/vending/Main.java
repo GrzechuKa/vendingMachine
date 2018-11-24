@@ -32,14 +32,7 @@ public class Main {
                 UserMenuSelection userSelection = getUserSelection();
                 switch (userSelection) {
                     case BUY_PRODUCT:
-                        System.out.print("> Tray symbol :");
-                        String traySymbol = new Scanner(System.in).nextLine();
-                        Optional<Product> product = customerOperationController.buyProductForSymbol(traySymbol);
-                        if (product.isPresent()) {
-                            System.out.println("You buy product : " + product.get().getName());
-                        } else {
-                            System.out.println("No product");
-                        }
+                        customerOperationController.buyProduct();
                         break;
                     case EXIT:
                         System.out.println("Bye");
