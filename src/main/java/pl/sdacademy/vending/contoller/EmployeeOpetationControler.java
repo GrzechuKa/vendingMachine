@@ -32,6 +32,17 @@ public class EmployeeOpetationControler {
         System.out.println(retmoveTray.orElse("Tray has been removed"));
     }
 
+    public void changePrice(){
+        String traySymbol = getTraySymbolFromUser();
+        Long price = getTrayPriceFromUser();
+        Optional<String> changePrice = employeeService.changePrice(traySymbol, price);
+        if(changePrice.isPresent()){
+            System.out.println(changePrice);
+        } else{
+        System.out.println("OK");
+        }
+    }
+
     private String getTraySymbolFromUser() {
         System.out.print(" > Provide tray symbol :");
         return getUserInput().toUpperCase();

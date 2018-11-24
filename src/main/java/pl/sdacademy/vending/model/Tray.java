@@ -46,6 +46,9 @@ public class Tray implements Serializable {
         return Optional.ofNullable(products.poll());
     }
 
+    public void updatePrice(Long price){
+        this.price = price;
+    }
 
     public static class Builder {
         private String symbol;

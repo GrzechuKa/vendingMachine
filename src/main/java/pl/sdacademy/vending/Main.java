@@ -83,6 +83,7 @@ public class Main {
                     case REMOVE_PRODUCT_FROM_TRAY:
                         break;
                     case CHANGE_PRICE:
+                        employeeOpetationControler.changePrice();
                         break;
                     case EXIT:
                         return;

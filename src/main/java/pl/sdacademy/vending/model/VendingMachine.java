@@ -99,7 +99,7 @@ public class VendingMachine implements Serializable {
     }
 
     public boolean addProductToTray(String traySymbol, Product product) {
-        Optional<Tray> optainedTray = getTreyForSymbol(traySymbol);
+        Optional<Tray> optainedTray = getTrayForSymbol(traySymbol);
 
         if (optainedTray.isPresent()) {
             return optainedTray.get().addProduct(product);
@@ -108,13 +108,22 @@ public class VendingMachine implements Serializable {
         }
     }
 
-    private Optional<Tray> getTreyForSymbol (String traySymbol){
+    private Optional<Tray> getTrayForSymbol(String traySymbol){
         if (traySymbol.length() != 2) {
             return Optional.empty();
         }
         Integer rowNo = traySymbol.charAt(0) - 'A';
         Integer colNo = traySymbol.charAt(1) - '1';
         return getTrayAtPosition(rowNo, colNo);
+    }
+
+    public boolean updatePriceForSymbol(String traySymbol, Long updatedPrice){
+        Optional<Tray> trayAtPosition = getTrayForSymbol(traySymbol);
+        if (trayAtPosition.isPresent()) {
+        trayAtPosition.get().updatePrice(updatedPrice);
+        return true;
+        }
+        return false;
     }
 }
 
