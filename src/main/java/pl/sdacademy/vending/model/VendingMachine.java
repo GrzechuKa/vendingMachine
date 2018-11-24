@@ -125,5 +125,17 @@ public class VendingMachine implements Serializable {
         }
         return false;
     }
+
+    public VendingMachineSnapshot snapshot (){
+        VendingMachineSnapshot.Builder maschineSnapshot = VendingMachineSnapshot.builder(rowsCount.intValue(), colsCount.intValue());
+        for(int rowCo = 0; rowCo < rowsCount; rowCo++){
+            for(int colNo = 0; colNo < colsCount; colNo++){
+                if(getTrayAtPosition(rowCo, colNo).isPresent()){
+                    maschineSnapshot.tray(rowCo, colNo, trays[rowCo][colNo].snapshot());
+                }
+            }
+        }
+        return maschineSnapshot.build();
+    }
 }
 

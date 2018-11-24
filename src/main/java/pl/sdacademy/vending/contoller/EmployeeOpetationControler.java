@@ -1,7 +1,6 @@
 package pl.sdacademy.vending.contoller;
 
 import pl.sdacademy.vending.contoller.service.EmployeeService;
-import pl.sdacademy.vending.model.Tray;
 
 import java.util.Optional;
 import java.util.Scanner;
@@ -18,12 +17,7 @@ public class EmployeeOpetationControler {
     public void addTray() {
         String traySymbol = getTraySymbolFromUser();
         Long price = getTrayPriceFromUser();
-
-        Tray newTray = Tray.builder(traySymbol)
-                .price(price)
-                .build();
-
-        Optional<String> errorMessege = employeeService.addTray(newTray);
+        Optional<String> errorMessege = employeeService.addTray(traySymbol, price);
         System.out.println(errorMessege.orElse("Tray has been added"));
     }
 
